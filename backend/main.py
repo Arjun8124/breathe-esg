@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 import models
 from database import engine, SessionLocal
-from models import NormalizedRecord
+from models import NormalizedRecord, RawData
 
 app = FastAPI()
 models.Base.metadata.create_all(engine)
@@ -37,6 +37,11 @@ def upload_files(
     data = pd.read_csv(file.file)
 
     for _, row in data.iterrows():
+        rawdata = row.to_dict()
+        raw = RawData(
+            source_type=source_type,
+            raw_data=rawdata
+        )
         if source_type.lower() == "sap":
             record = normalize_sap(row)
         elif source_type.lower() == "utility":
@@ -49,9 +54,21 @@ def upload_files(
                 detail="Invalid source type",
             )
         db.add(record)
-
+        db.add(raw)
     db.commit()
     return {"message": f"{source_type} uploaded successfully!"}
+
+
+@app.get("/records")
+def get_all_records(db: db_dependency):
+    return db.query(NormalizedRecord).all()
+
+
+@app.delete("/records/{record_id}")
+def delete_record(record_id: int, db: db_dependency):
+    db.query(NormalizedRecord).filter(NormalizedRecord.id == record_id).delete()
+    db.commit()
+    return {"message": f"{record_id} deleted successfully!"}
 
 
 def normalize_sap(row):

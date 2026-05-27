@@ -6,6 +6,7 @@ export default function App() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [source, setSource] = useState("sap");
 
   const fetchRecords = async () => {
     try {
@@ -28,7 +29,11 @@ export default function App() {
 
   return (
     <div>
-      <UploadFile fetchRecords={fetchRecords} />
+      <UploadFile
+        fetchRecords={fetchRecords}
+        source={source}
+        setSource={setSource}
+      />
       <RecordsDashboard records={records} loading={loading} error={error} />
     </div>
   );

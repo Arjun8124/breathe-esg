@@ -36,25 +36,33 @@ def upload_files(
     data = pd.read_csv(file.file)
 
     for _, row in data.iterrows():
-        rawdata = row.to_dict()
-        raw = RawData(
-            source_type=source_type.upper(),
-            raw_data=rawdata
-        )
-        if source_type.lower() == "sap":
-            record = normalize_sap(row)
-        elif source_type.lower() == "utility":
-            record = normalize_utility(row)
-        elif source_type.lower() == "travel":
-            record = normalize_travel(row)
-        else:
+        try:
+            rawdata = row.to_dict()
+            raw = RawData(
+                source_type=source_type.upper(),
+                raw_data=rawdata
+            )
+            if source_type.lower() == "sap":
+                record = normalize_sap(row)
+            elif source_type.lower() == "utility":
+                record = normalize_utility(row)
+            elif source_type.lower() == "travel":
+                record = normalize_travel(row)
+            else:
+                raise HTTPException(
+                    status_code=400,
+                    detail="Invalid source type",
+                )
+            db.add(record)
+            db.add(raw)
+            db.commit()
+        except Exception as e:
+            db.rollback()
             raise HTTPException(
                 status_code=400,
-                detail="Invalid source type",
+                detail=str(e),
             )
-        db.add(record)
-        db.add(raw)
-    db.commit()
+
     return {"message": f"{source_type} uploaded successfully!"}
 
 

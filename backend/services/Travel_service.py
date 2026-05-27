@@ -2,7 +2,8 @@ from models import NormalizedRecord
 
 
 def normalize_travel(row):
-    sus = False
+    travel_mode = ["flight", "hotel", "taxi"]
+    sus = row["Mode"].lower() not in travel_mode
     return NormalizedRecord(
         source_type="Travel",
         activity_type=row["Mode"],

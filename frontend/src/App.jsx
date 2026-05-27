@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAllRecords } from "./api/api";
+import RecordsDashboard from "./components/RecordsDashboard";
 export default function App() {
   const [records, setRecords] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,12 +23,7 @@ export default function App() {
 
   return (
     <div>
-      <h1>Records Dashboard</h1>
-      {loading && <p>Loading...</p>}
-      {error && <p>Error: {error}</p>}
-      {records.map((record) => (
-        <div key={record.id}>{record.activity_type}</div>
-      ))}
+      <RecordsDashboard records={records} loading={loading} error={error} />
     </div>
   );
 }

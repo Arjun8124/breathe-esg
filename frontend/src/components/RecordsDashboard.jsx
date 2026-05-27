@@ -11,6 +11,7 @@ export default function RecordsDashboard({ loading, error, records }) {
               <th>Source</th>
               <th>Activity</th>
               <th>Quantity</th>
+              <th>Unit</th>
               <th>Status</th>
             </tr>
           </thead>
@@ -21,6 +22,7 @@ export default function RecordsDashboard({ loading, error, records }) {
                 <td>{record.source_type}</td>
                 <td>{record.activity_type}</td>
                 <td>{record.quantity}</td>
+                <td>{record.unit}</td>
                 <td>{record.status}</td>
               </tr>
             ))}

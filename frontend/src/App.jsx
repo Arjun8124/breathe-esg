@@ -28,7 +28,16 @@ export default function App() {
   }, []);
 
   return (
-    <div>
+    <div className="app-shell">
+      <header className="app-header">
+        <div className="app-header__brand">
+          <span className="app-header__logo">B</span>
+          <div>
+            <h1 className="app-header__title">Breathe ESG</h1>
+            <p className="app-header__subtitle">Data Normalization Console</p>
+          </div>
+        </div>
+      </header>
       <UploadFile
         fetchRecords={fetchRecords}
         source={source}

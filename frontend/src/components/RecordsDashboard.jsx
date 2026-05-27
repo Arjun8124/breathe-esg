@@ -1,4 +1,19 @@
-export default function RecordsDashboard({ loading, error, records }) {
+import { approveRecord, rejectRecord } from "../api/api";
+
+export default function RecordsDashboard({
+  loading,
+  error,
+  records,
+  fetchRecords,
+}) {
+  const handleApprove = async (id) => {
+    await approveRecord(id);
+    await fetchRecords();
+  };
+  const handleReject = async (id) => {
+    await rejectRecord(id);
+    await fetchRecords();
+  };
   return (
     <>
       <h1>Records Dashboard</h1>
@@ -13,6 +28,7 @@ export default function RecordsDashboard({ loading, error, records }) {
               <th>Quantity</th>
               <th>Unit</th>
               <th>Status</th>
+              <th>Actions</th>
             </tr>
           </thead>
 
@@ -24,6 +40,14 @@ export default function RecordsDashboard({ loading, error, records }) {
                 <td>{record.quantity}</td>
                 <td>{record.unit}</td>
                 <td>{record.status}</td>
+                <td>
+                  <button onClick={() => handleApprove(record.id)}>
+                    Approve
+                  </button>
+                  <button onClick={() => handleReject(record.id)}>
+                    Reject
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

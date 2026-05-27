@@ -34,7 +34,12 @@ export default function App() {
         source={source}
         setSource={setSource}
       />
-      <RecordsDashboard records={records} loading={loading} error={error} />
+      <RecordsDashboard
+        records={records}
+        loading={loading}
+        error={error}
+        fetchRecords={fetchRecords}
+      />
     </div>
   );
 }

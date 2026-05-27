@@ -63,6 +63,16 @@ def get_all_records(db: db_dependency):
     return db.query(NormalizedRecord).all()
 
 
+@router.get("/pending")
+def get_pending_records(db: db_dependency):
+    return db.query(NormalizedRecord).filter(NormalizedRecord.status == "Pending").all()
+
+
+@router.get("/suspicious")
+def get_suspicious_records(db: db_dependency):
+    return db.query(NormalizedRecord).filter(NormalizedRecord.is_suspicious == True).all()
+
+
 @router.delete("/{record_id}")
 def delete_record(record_id: int, db: db_dependency):
     record = db.query(NormalizedRecord).filter(NormalizedRecord.id == record_id).first()
@@ -101,8 +111,3 @@ def reject_record(record_id: int, db: db_dependency):
     record.status = "Rejected"
     db.commit()
     return {"message": f"{record_id} rejected!"}
-
-
-@router.get("/pending")
-def get_pending_records(db: db_dependency):
-    return db.query(NormalizedRecord).filter(NormalizedRecord.status == "Pending").all()

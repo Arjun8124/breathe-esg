@@ -81,6 +81,16 @@ def get_suspicious_records(db: db_dependency):
     return db.query(NormalizedRecord).filter(NormalizedRecord.is_suspicious == True).all()
 
 
+@router.delete("/clear")
+def clear_database(db: db_dependency):
+    db.query(NormalizedRecord).delete()
+    db.query(RawData).delete()
+
+    db.commit()
+
+    return {"message": "Database cleared"}
+
+
 @router.delete("/{record_id}")
 def delete_record(record_id: int, db: db_dependency):
     record = db.query(NormalizedRecord).filter(NormalizedRecord.id == record_id).first()

@@ -7,14 +7,19 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [source, setSource] = useState("sap");
+  const [filterSource, setFilterSource] = useState("");
 
-  const pendingRecords = records.filter(
+  const filteredRecords = filterSource
+    ? records.filter((record) => record.source_type === filterSource)
+    : records;
+
+  const pendingRecords = filteredRecords.filter(
     (record) => record.status === "Pending",
   );
-  const approvedRecords = records.filter(
+  const approvedRecords = filteredRecords.filter(
     (record) => record.status === "Approved",
   );
-  const rejectedRecords = records.filter(
+  const rejectedRecords = filteredRecords.filter(
     (record) => record.status === "Rejected",
   );
 
@@ -54,6 +59,8 @@ export default function App() {
         setSource={setSource}
       />
       <RecordsDashboard
+        filterSource={filterSource}
+        setFilterSource={setFilterSource}
         pendingRecords={pendingRecords}
         approvedRecords={approvedRecords}
         rejectedRecords={rejectedRecords}

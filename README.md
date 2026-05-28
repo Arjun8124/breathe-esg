@@ -2,7 +2,8 @@
 
 A full-stack data normalization tool for ESG (Environmental, Social, Governance) reporting. Upload CSV files from different sources — SAP, utility bills, travel logs — and the app normalizes them into a single schema, flags suspicious entries, and lets you approve or reject records through a clean dashboard.
 
-**Live:** [breathe-esg-wheat.vercel.app](https://breathe-esg-wheat.vercel.app)
+**Live:** [breathe-esg-wheat.vercel.app](https://breathe-esg-wheat.vercel.app)  
+**Backend API:** [breathe-esg-vkx3.onrender.com](https://breathe-esg-vkx3.onrender.com)
 
 ## How It Works
 
@@ -10,6 +11,12 @@ A full-stack data normalization tool for ESG (Environmental, Social, Governance)
 2. The backend **parses and normalizes** each row into a common format
 3. Records with odd values (negative quantities, unknown travel modes) get **flagged as suspicious**
 4. **Review** records on the dashboard — approve, reject, or delete them
+
+## Screenshots
+
+![Upload & Pending Records](screenshots/dashboard.png)
+
+![Approved & Rejected Records](screenshots/records.png)
 
 ## Tech Stack
 

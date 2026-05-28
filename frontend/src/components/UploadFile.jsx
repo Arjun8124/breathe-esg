@@ -17,8 +17,14 @@ export default function UploadFile({ fetchRecords, source, setSource }) {
       </div>
       <div className="upload-card__controls">
         <div className="form-group">
-          <label className="form-label" htmlFor="source-select">Source Type</label>
-          <select id="source-select" value={source} onChange={(e) => setSource(e.target.value)}>
+          <label className="form-label" htmlFor="source-select">
+            Source Type
+          </label>
+          <select
+            id="source-select"
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+          >
             <option value="sap">SAP</option>
             <option value="utility">Utility</option>
             <option value="travel">Travel</option>
@@ -29,7 +35,9 @@ export default function UploadFile({ fetchRecords, source, setSource }) {
           <input type="file" onChange={(e) => setFile(e.target.files[0])} />
         </div>
         <div className="form-group form-group--action">
-          <button className="btn-upload" onClick={handleUpload}>Upload</button>
+          <button className="btn-upload" onClick={handleUpload}>
+            Upload
+          </button>
         </div>
       </div>
     </div>

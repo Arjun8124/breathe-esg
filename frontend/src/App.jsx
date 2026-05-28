@@ -8,6 +8,16 @@ export default function App() {
   const [error, setError] = useState("");
   const [source, setSource] = useState("sap");
 
+  const pendingRecords = records.filter(
+    (record) => record.status === "Pending",
+  );
+  const approvedRecords = records.filter(
+    (record) => record.status === "Approved",
+  );
+  const rejectedRecords = records.filter(
+    (record) => record.status === "Rejected",
+  );
+
   const fetchRecords = async () => {
     try {
       setLoading(true);
@@ -44,10 +54,12 @@ export default function App() {
         setSource={setSource}
       />
       <RecordsDashboard
-        records={records}
+        pendingRecords={pendingRecords}
+        approvedRecords={approvedRecords}
+        rejectedRecords={rejectedRecords}
         loading={loading}
         error={error}
-        fetchRecords={fetchRecords}
+        setRecords={setRecords}
       />
     </div>
   );

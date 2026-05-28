@@ -2,7 +2,7 @@ export default function RejectedRecords({ loading, error, rejectedRecords }) {
   return (
     <>
       <div className="records-card__header">
-        <span className="records-card__icon">📋</span>
+        <span className="records-card__icon">🚫</span>
         <h2 className="records-card__title">Rejected Records</h2>
         {rejectedRecords && rejectedRecords.length > 0 && (
           <span className="records-card__count">

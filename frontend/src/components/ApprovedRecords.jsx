@@ -2,7 +2,7 @@ export default function ApprovedRecords({ loading, error, approvedRecords }) {
   return (
     <>
       <div className="records-card__header">
-        <span className="records-card__icon">📋</span>
+        <span className="records-card__icon">✅</span>
         <h2 className="records-card__title">Approved Records</h2>
         {approvedRecords && approvedRecords.length > 0 && (
           <span className="records-card__count">
